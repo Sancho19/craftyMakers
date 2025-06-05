@@ -1,0 +1,128 @@
+﻿@model TiaPlatform.Models.Resource
+@{
+    ViewData["Title"] = "Edit Resource";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card shadow-sm p-3" style="max-width: 650px; width: 100%;">
+        <h5 class="mb-3 text-center">Edit Resource</h5>
+
+        <form id="editForm" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-2">
+                <label asp-for="Title" class="small"></label>
+                <input asp-for="Title" class="form-control form-control-sm" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Subject" class="small"></label>
+                <input asp-for="Subject" class="form-control form-control-sm" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Description" class="small"></label>
+                <textarea asp-for="Description" class="form-control form-control-sm" rows="2"></textarea>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="small"></label>
+                <input asp-for="Price" class="form-control form-control-sm" />
+            </div>
+
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <div class="mb-3">
+                    <label class="small">Current Preview Images</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var img in Model.Images)
+                        {
+                            <div class="position-relative">
+                                <img src="@img.ImagePath" alt="Preview" width="100" height="130" class="border rounded shadow-sm" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="form-group mb-3">
+                <label class="small">Upload Additional Preview Images</label>
+                <input type="file" name="newPreviewImages" class="form-control form-control-sm" multiple />
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label class="small">Current File</label>
+                <iframe src="@Model.FilePath" width="100%" height="180px" style="border:1px solid #ccc;"></iframe>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="small">Upload New File (Optional)</label>
+                <input type="file" name="file" id="fileUpload" class="form-control form-control-sm" onchange="previewPDF(this)" />
+            </div>
+
+            <div id="newPreview" class="mb-3" style="display:none;">
+                <label class="small">New File Preview:</label>
+                <iframe id="pdfPreview" width="100%" height="180px" style="border:1px solid #ccc;"></iframe>
+            </div>
+
+            <button type="submit" class="btn btn-sm btn-primary w-100">Save Changes</button>
+
+          
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4 text-center">
+            <h5 class="modal-title mb-3">✅ Resource Updated</h5>
+            <p class="mb-4">Your changes have been saved successfully.</p>
+            <div>
+                <a asp-controller="Resource" asp-action="AdminDashboard" class="btn btn-success btn-sm me-2">Back to Dashboard</a>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Stay Here</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function previewPDF(input) {
+            const frame = document.getElementById('pdfPreview');
+            const container = document.getElementById('newPreview');
+            if (input.files && input.files[0]) {
+                frame.src = URL.createObjectURL(input.files[0]);
+                container.style.display = 'block';
+            }
+        }
+
+        $('#editForm').submit(function (e) {
+            e.preventDefault();
+            let form = document.getElementById('editForm');
+            let formData = new FormData(form);
+
+            // Manually add all preview image files
+            const files = document.querySelector('input[name="newPreviewImages"]').files;
+            for (let i = 0; i < files.length; i++) {
+                formData.append('newPreviewImages', files[i]);
+            }
+
+            $.ajax({
+                url: '/Resource/Edit/' + @Model.Id,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    $('#successModal').modal('show');
+                },
+                error: function () {
+                    alert('An error occurred while saving.');
+                }
+            });
+        });
+    </script>
+}
+
+

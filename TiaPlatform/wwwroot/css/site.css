@@ -1,0 +1,135 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.preview-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+    .preview-scroll::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+.text-primary-light {
+    color: #ff4d4d !important;
+}
+.small-nav-link {
+    font-size: 0.85rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.view-details:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: black !important;
+}
+
+    .view-details:hover i {
+        color: #fff !important;
+    }
+.custom-carousel-btn {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    position: absolute;
+}
+
+.carousel-control-prev.custom-carousel-btn {
+    left: -20px;
+}
+
+.carousel-control-next.custom-carousel-btn {
+    right: -20px;
+}
+#cartCount {
+    font-size: 0.65rem;
+    padding: 0.35em 0.5em;
+    top: 0.25rem;
+    right: 0.3rem;
+}
+
+.custom-carousel-icon {
+    color: #000;
+    font-size: 2rem;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px;
+}
+
+.custom-carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.modal-dialog {
+    max-width: 700px;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 1rem;
+    }
+}
+.fixed-bottom {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.custom-blur-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1040;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0);
+    transition: opacity 0.3s ease;
+}
+@media (min-width: 768px) {
+    .modal-custom-width {
+        max-width: 700px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-custom-width {
+        max-width: 600px;
+    }
+}
+
+
+

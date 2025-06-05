@@ -1,0 +1,60 @@
+﻿@model TiaPlatform.Models.Resource
+
+<div class="modal-custom-width mx-auto p-4 bg-white text-black rounded-3">
+    <h5 class="mb-0">@Model.Title</h5>
+    <p class="text-muted small mb-1 text-light">Subject: @Model.Subject</p>
+
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div id="carousel-@Model.Id" class="carousel slide mb-2" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.Images.Count(); i++)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@Model.Images.ElementAt(i).ImagePath"
+                             class="d-block w-100 rounded shadow-sm"
+                             style="height:450px;  width:300px; object-fit:contain;" />
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@Model.Id" data-bs-slide="prev">
+                <span class="custom-carousel-icon">
+                    <i class="bi bi-chevron-left"></i>  <!-- For previous -->
+                </span>
+
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-@Model.Id" data-bs-slide="next">
+                <span class="custom-carousel-icon">
+                    <i class="bi bi-chevron-right"></i> <!-- For next -->
+                </span>
+
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    }
+
+    <p class="small text-black">@Model.Description</p>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <span class="fw-bold fs-2 text-primary">@Model.Price.ToString("C")</span>
+
+        @if (!User.IsInRole("Admin"))
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                <button class="btn btn-sm btn-success add-to-cart" data-id="@Model.Id">
+                    <i class="bi bi-cart-plus me-1"></i> Add To Cart
+                </button>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-sm btn-outline-dark view-details">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Login to Buy
+                </a>
+            }
+        }
+    </div>
+
+
+</div>

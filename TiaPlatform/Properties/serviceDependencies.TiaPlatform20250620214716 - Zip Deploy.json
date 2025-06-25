@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/TiaPlatform20250620214716/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDatabaseConnection_D871478BBB",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/tiaplatformdbserver/databases/TiaPlatform_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DatabaseConnection"
+    }
+  }
+}

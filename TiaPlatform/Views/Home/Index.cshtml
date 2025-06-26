@@ -3,44 +3,100 @@
     ViewData["Title"] = "Home Page";
     var searchTerm = Context.Request.Query["search"];
 }
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
-    <div id="cartAlert" class="toast align-items-center border-0 fade" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">Item added to cart!</div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+
+<style>
+    body {
+        background-color: #ffffff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .brand-logo {
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-fade {
+        animation: fadeInUp 1.5s ease-out;
+    }
+
+    .hero-title {
+        background: linear-gradient(90deg, #8b5d44, #c56a6a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
+
+    .hero-section {
+        background: #fffaf7;
+        padding: 4rem 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+        margin-bottom: 3rem;
+    }
+
+    .btn-outline-info {
+        border-color: #c56a6a;
+        color: #c56a6a;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #c56a6a;
+            color: white;
+        }
+
+    .alert-coming-soon {
+        background-color: #fff7f1;
+        border: 1px dashed #d06e6e;
+        color: #7b3f3f;
+    }
+</style>
+
+<!-- Combined Logo and Hero Section -->
+<section class="hero-section hero-fade w-100" style="margin-top: -1rem; padding: 0; background: #fffaf7;">
+    <div class="container-fluid px-4 py-5">
+        <div class="row align-items-center text-center text-lg-start">
+            <!-- Logo Left -->
+            <div class="col-lg-4 mb-4 mb-lg-0 d-flex justify-content-center">
+                <img src="/images/CraftyMakersLogo.jpg"
+                     alt="The Crafty Makers Logo"
+                     class="brand-logo"
+                     style="width: 230px; height: 230px;" />
+            </div>
+
+            <!-- Text Right -->
+            <div class="col-lg-8">
+                <h1 class="fs-2 hero-title mb-3">Crafted with Heart, Designed for You</h1>
+                <p class="lead text-muted small">
+                    Discover handmade elegance and curated resources that educate, inspire, and create impact—only at The Crafty Makers.
+                </p>
+                <a href="#resourcesSection" class="btn btn-outline-info mt-3 px-4 rounded-pill">
+                    <i class="bi bi-book me-1"></i> Start Browsing
+                </a>
+            </div>
         </div>
     </div>
-</div>
-
-
-<!-- Logo -->
-@* <div class="text-center my-4"> *@
-@*     <img src="/images/malita_logo.png" alt="Matilda Logo" *@
-@*          style="height: 200px; width: 200px; border-radius: 50%; object-fit: contain;" /> *@
-@* </div> *@
-
-<!-- Hero Banner -->
-<section class="text-center rounded-3 mb-5">
-    <div class="container">
-        <h1 class="display-5 fw-bold">Unlock Knowledge. Instantly.</h1>
-        
-
-        <p class="lead">Browse, preview, and buy top-tier educational resources — curated just for you.</p>
-        <a href="#resourcesSection" class="btn btn-outline-info mt-3 px-4 rounded-pill">
-            <i class="bi bi-book me-1"></i> Start Browsing
-        </a>
-    </div>
 </section>
+
+
+
+
 <!-- Coming Soon Note -->
-<div class="text-center alert alert-info rounded-pill mx-auto w-85 shadow-sm mt-3">
-    <strong>Luyo Campana Embroidery & NCB Jewellery (Homemade Jewellery)</strong> – Two exciting additions to our brand, offering personalized accessories, handmade décor, and stylish jewellery... <br class="d-none d-md-inline" />
-    <em>Coming Soon!</em>
+<div class="container text-center mb-5">
+    <div class="alert alert-coming-soon rounded-4 shadow-sm">
+        <strong>Luyo Campana Embroidery & NCB Jewellery</strong> – Two exciting additions to <em>The Crafty Makers</em> brand!  
+        <br class="d-none d-md-inline" />
+        From embroidered mugs, accessories, pillowcases to homemade jewellery...  
+        <strong>Launching Soon!</strong>
+    </div>
 </div>
 
 <!-- Browse Header -->
 <div class="text-center mb-4" id="resourcesSection">
     <h2 class="fw-bold mb-2">Browse Educational Resources</h2>
-    <p class="text-muted">Hand-picked study materials designed to help you succeed.</p>
+    <p class="text-muted">Beautifully designed, expertly curated content to elevate your learning journey.</p>
 </div>
 
 <!-- Search Bar -->
@@ -61,10 +117,20 @@
 </div>
 
 
+<!-- Toast Cart Alert -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+    <div id="cartAlert" class="toast align-items-center border-0 fade" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">Item added to cart!</div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Backdrop Blur -->
 <div id="customBlurBackdrop" class="custom-blur-backdrop d-none"></div>
 
-<!-- Modal -->
+<!-- Details Modal -->
 <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 bg-transparent">
@@ -76,70 +142,70 @@
 </div>
 
 @section Scripts {
-    <script>
-        $(document).on('click', '.view-details', function () {
-            const id = $(this).data('id');
+        <script>
+            $(document).on('click', '.view-details', function () {
+                const id = $(this).data('id');
 
-            $.get(`/Resource/GetDetailsModal`, { id }, function (data) {
-                $('#detailsContent').html(data);
-                $('#customBlurBackdrop').removeClass('d-none');
+                $.get(`/Resource/GetDetailsModal`, { id }, function (data) {
+                    $('#detailsContent').html(data);
+                    $('#customBlurBackdrop').removeClass('d-none');
 
-                const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
-                modal.show();
+                    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+                    modal.show();
+                });
             });
-        });
 
-        $('#detailsModal').on('hidden.bs.modal', function () {
-            $('#customBlurBackdrop').addClass('d-none');
-        });
-
-             
-
-
-
-
-             $('#searchForm').submit(function (e) {
-            e.preventDefault();
-            const searchTerm = $('#searchInput').val();
-
-            $.get("/Home/GetFilteredResources", { search: searchTerm }, function (data) {
-                $('#resourceGrid').html(data);
+            $('#detailsModal').on('hidden.bs.modal', function () {
+                $('#customBlurBackdrop').addClass('d-none');
             });
-        });
 
-                $(document).on('click', '.add-to-cart', function () {
-            const resourceId = $(this).data('id');
-
-            $.post("/Cart/Add", { resourceId }, function (response) {
-                const toastEl = $('#cartAlert');
-                const toastBody = $('#cartAlert .toast-body');
-
-                toastBody.text(response.message);
-
-                // Remove old alert classes
-                toastEl.removeClass('bg-success bg-warning text-bg-success text-bg-warning');
-
-                if (response.success) {
-                    toastEl.addClass('text-bg-success'); // ✅ green
-                } else {
-                    toastEl.addClass('text-bg-warning'); // ⚠️ yellow
-                }
-
-                const toast = new bootstrap.Toast(toastEl[0]);
-                toast.show();
-
-                if (response.success) {
-                    updateCartBadge();
-
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
-                    modal.hide();
-                    $('#customBlurBackdrop').addClass('d-none');
-                }
-            }).fail(function () {
-                alert("Something went wrong. Try again.");
+            $('#searchForm').submit(function (e) {
+                e.preventDefault();
+                const searchTerm = $('#searchInput').val();
+                $.get("/Home/GetFilteredResources", { search: searchTerm }, function (data) {
+                    $('#resourceGrid').html(data);
+                });
             });
-        });
 
+            $(document).on('click', '.add-to-cart', function () {
+                const resourceId = $(this).data('id');
+                $.post("/Cart/Add", { resourceId }, function (response) {
+                    const toastEl = $('#cartAlert');
+                    const toastBody = $('#cartAlert .toast-body');
+                    toastBody.text(response.message);
+                    toastEl.removeClass('bg-success bg-warning text-bg-success text-bg-warning');
 
-    </script>
+                    if (response.success) {
+                        toastEl.addClass('text-bg-success');
+                    } else {
+                        toastEl.addClass('text-bg-warning');
+                    }
+
+                    const toast = new bootstrap.Toast(toastEl[0]);
+                    toast.show();
+
+                    if (response.success) {
+                        updateCartBadge();
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
+                        modal.hide();
+                        $('#customBlurBackdrop').addClass('d-none');
+                    }
+                }).fail(function () {
+                    alert("Something went wrong. Try again.");
+                });
+            });
+
+            function updateCartBadge() {
+                $.get("/Cart/GetCartItemCount", function (data) {
+                    const badge = $('#cartCount');
+                    if (data.count > 0) {
+                        badge.text(data.count).removeClass('d-none');
+                    } else {
+                        badge.addClass('d-none');
+                    }
+                });
+            }
+
+            $(document).ready(updateCartBadge);
+        </script>
 }

@@ -2,8 +2,15 @@
 using TiaPlatform.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Set default culture globally
+var cultureInfo = new CultureInfo("en-ZA");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
 // DB setup
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")

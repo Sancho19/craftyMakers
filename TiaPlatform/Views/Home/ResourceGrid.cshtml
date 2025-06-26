@@ -1,24 +1,43 @@
 ﻿@model IEnumerable<TiaPlatform.Models.Resource>
 
+<style>
+   
+
+    .resource-img {
+        height: 250px;
+        object-fit: cover;
+        border-radius: 0.75rem;
+    }
+
+    .resource-price {
+        color: #a64949;
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #a64949;
+        border-color: #a64949;
+        color: white;
+    }
+</style>
+
 <div class="row row-cols-2 row-cols-md-5 g-3">
     @foreach (var item in Model)
     {
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
-                <div class="card-body d-flex flex-column p-3">
-                    <div class="mb-3">
-                        <img src="@item.Images?.FirstOrDefault()?.ImagePath"
-                             class="img-fluid rounded shadow-sm w-100"
-                             style="height: 250px; object-fit: cover;"
-                             alt="Preview image" />
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden resource-card">
+                    <div class="card-body d-flex bg-transparent flex-column p-3">
+                        <div class="mb-3">
+                            <img src="@item.Images?.FirstOrDefault()?.ImagePath"
+                                 class="img-fluid resource-img w-100"
+                                 alt="Preview image" />
+                        </div>
+                        <h6 class="card-title fw-semibold text-truncate mb-1">@item.Title</h6>
+                        <span class="resource-price small fs-5 fw-bold mb-2">@item.Price.ToString("C")</span>
+                        <button class="btn btn-sm btn-outline-dark mt-auto w-100 view-details rounded-pill" data-id="@item.Id">
+                            <i class="bi bi-eye me-1"></i> View More
+                        </button>
                     </div>
-                    <h6 class="card-title fw-semibold text-truncate mb-1">@item.Title</h6>
-                    <span class="text-primary small fs-5 fw-bold mb-2">R @item.Price.ToString("C")</span>
-                    <button class="btn btn-sm btn-outline-dark mt-auto w-100 view-details rounded-pill" data-id="@item.Id">
-                        <i class="bi bi-eye me-1"></i> View More
-                    </button>
                 </div>
             </div>
-        </div>
     }
 </div>
